@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/normalize.css">
-    <title>Document</title>
+    <title>Товар и точка</title>
 </head>
 
 <body>
     <header class="header">
         <div class="header__container">
             <div class="header__logo__container">
-                <button class="header__btn__menu btn">
+                <button class="header__btn__menu">
                     <span class="header__btn__menu__line"></span>
                 </button>
                 <div class="header__logo">
@@ -22,18 +22,18 @@
             </div>
             <div class="header__search">
                 <input placeholder="Я ищу..." class="header__search__input" type="text">
-                <button class="header__search__btn btn">
+                <button class="header__search__btn">
                     <img class="header__search__img" src="assets/img/header__search.svg" alt="magnifier">
                 </button>
             </div>
             <div class="header__btn__container">
-                <button class="header__btn btn" id="header__user">
+                <button class="header__btn" id="header__user">
                     <span class="header__btn__img__user">
                         <img class="header__btn__img" src="assets/img/header__user.svg" alt="user">
                     </span>
                     <span class="header__btn__txt">Профиль</span>
                 </button>
-                <button class="header__btn btn" id="header__cart">
+                <button class="header__btn" id="header__cart">
                     <span class="header__btn__img__cart">
                         <img class="header__btn__img" src="assets/img/header__cart.svg" alt="cart">
                     </span>
@@ -42,14 +42,14 @@
             </div>
         </div>
         <div class="header__mobile">
-            <button class="header__mobile__btn btn">
+            <button class="header__mobile__btn">
                 <img class="header__mobile__btn__img" src="assets/img/header__mobile__btn.svg" alt="burger">
             </button>
             <div class="header__logo">
                 <span class="header__logo__txt">Товары и точка</span>
             </div>
             <input placeholder="Я ищу..." class="header__mobile__input" type="text">
-            <button class="header__mobile__search btn">
+            <button class="header__mobile__search">
                 <img class="header__mobile__search__img" src="assets/img/header__search__mobile.svg" alt="magnifier">
             </button>
         </div>
@@ -67,28 +67,148 @@
                 </div>
             </div>
         </div>
-        <div class="total"></div>
+        <div class="total">
+            <div class="total__order">
+                <div class="total__price">
+                    <div class="total__price__container">
+                        <span id="total__title">Итого</span>
+                        <span>
+                            <span id="total__price">2 101 063</span>
+                            <span id="total__currency"> сом</span>
+                        </span>
+                    </div>
+                    <div class="total__price__details">
+                        <div class="total__price__container">
+                            <span>
+                                <span id="total__items">203</span>
+                                <span> товара</span>
+                            </span>
+                            <span>
+                                <span id="total__fullprice">2 302 048</span>
+                                <span> сом</span>
+                            </span>
+                        </div>
+                        <div class="total__price__container">
+                            <span>Скидка</span>
+                            <span>
+                                <span id="total__discount">−200 985</span>
+                                <span> сом</span>
+                            </span>
+                        </div>
+                        <div class="total__price__container">
+                            <span>Доставка</span>
+                            <span id="shipping__price">Бесплатно</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="total__shipping total__details">
+                    <div class="total__details__container" id="total__shipping__top">
+                        <div class="total__title-edit">
+                            <span class="total__h">Доставка в пункт выдачи</span>
+                            <button class="total__edit-btn" onclick="showShippingModal()">
+                                <img class="total__icon" src="assets/img/edit-icon.svg" alt="edit">
+                            </button>
+                        </div>
+                        <div class="total__address">Бишкек, улица Ахматбека Суюмбаева, 12/1</div>
+                        <div class="total__date">
+                            <span>5–8 фев</span>
+                            <img class="total__date__img" src="assets/img/date__underline.svg" alt="underline">
+                        </div>
+                    </div>
+                    <div class="total__shipping__bottom">
+                        <span class="total__shipping__img__container">
+                            <img class="total__shipping__img" src="assets/img/price-shipping.svg" alt="greencheckmark">
+                        </span>
+                        <span class="total__shipping__txt">Обратная доставка товаров на склад при отказе — 
+                            <span class="total__shipping__txt__accent">
+                                бесплатно
+                                <img class="total__shipping__txt__img" src="assets/img/shipping-payment__underline.svg"
+                                    alt="underline">
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="total__card total__details">
+                    <div class="total__details__container">
+                        <div class="total__title-edit">
+                            <span class="total__h">Оплата картой</span>
+                            <button class="total__edit-btn">
+                                <img class="total__icon" src="assets/img/edit-icon.svg" alt="edit">
+                            </button>
+                        </div>
+                        <div class="total__card__container">
+                            <span class="total__card__btn">
+                                <img class="total__card__img" src="assets/img/mir.svg" alt="mir">
+                            </span>
+                            <span class="total__card__details">1234 12•• •••• 1234</span>
+                        </div>
+                    </div>
+                    <div class="total__card__bottom">
+                        <form class="total__card__pay">
+                            <input class="total__card__pay__input" type="checkbox" name="" id="">
+                            <label class="total__card__pay__txt">Списать оплату сразу</label>
+                        </form>
+                        <div class="total__card__warning">Спишем оплату с карты при получении</div>
+                    </div>
+                </div>
+                <div class="total__mobile">
+                    <div class="total__shipping__bottom">
+                        <span class="total__shipping__img__container">
+                            <img class="total__shipping__img" src="assets/img/price-shipping.svg" alt="greencheckmark">
+                        </span>
+                        <span class="total__shipping__txt">Обратная доставка товаров на склад при отказе — 
+                            <span class="total__shipping__txt__accent">
+                                бесплатно
+                                <img class="total__shipping__txt__img" src="assets/img/shipping-payment__underline.svg"
+                                    alt="underline">
+                            </span>
+                        </span>
+                    </div>
+                    <div class="total__card__bottom">
+                        <form class="total__card__pay">
+                            <input class="total__card__pay__input" type="checkbox" name="" id="">
+                            <label class="total__card__pay__txt">Списать оплату сразу</label>
+                        </form>
+                        <div class="total__card__warning">Спишем оплату с карты при получении</div>
+                    </div>
+                </div>
+            </div>
+            <div class="total__btn__container">
+                <button class="total__btn">Заказать</button>
+                <div class="total__btn__agreement">
+                    <img class="total__btn__img" src="assets/img/total__checkmark.svg" alt="checkmark">
+                    <span class="total__btn__txt">Соглашаюсь с
+                        <span class="total__underline">правилами <br class="total__br"> пользования торговой
+                            площадкой</span> <br class="total__br">
+                        и
+                        <span class="total__underline">возврата</span>
+                    </span>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="footer">
         <div class="footer__content">© 2022 ООО «Товары и точка»</div>
     </footer>
     <nav class="navbar">
-        <button class="btn navbar__btn">
+        <button class="navbar__btn">
             <img class="navbar__btn__img" src="assets/img/navbar__home.svg" alt="home">
         </button>
-        <button class="btn navbar__btn">
+        <button class="navbar__btn">
             <img class="navbar__btn__img" src="assets/img/navbar__search.svg" alt="search">
         </button>
-        <button class="btn navbar__btn">
+        <button class="navbar__btn">
             <img class="navbar__btn__img" src="assets/img/header__cart.svg" alt="cart">
         </button>
-        <button class="btn navbar__btn">
+        <button class="navbar__btn">
             <img class="navbar__btn__img" src="assets/img/navbar__wishlist.svg" alt="wishlist">
         </button>
-        <button class="btn navbar__btn">
+        <button class="navbar__btn">
             <img class="navbar__btn__img" src="assets/img/header__user.svg" alt="user">
         </button>
     </nav>
+
+    <script src="assets/js/index.js"></script>
 </body>
 
 </html>
