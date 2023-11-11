@@ -132,7 +132,7 @@
                     <div class="total__details__container">
                         <div class="total__title-edit">
                             <span class="total__h">Оплата картой</span>
-                            <button class="total__edit-btn">
+                            <button class="total__edit-btn" onclick="showCardModal()">
                                 <img class="total__icon" src="assets/img/edit-icon.svg" alt="edit">
                             </button>
                         </div>
@@ -190,6 +190,130 @@
     <footer class="footer">
         <div class="footer__content">© 2022 ООО «Товары и точка»</div>
     </footer>
+
+    <div class="modal" id="modal-shipping">
+        <div class="modal__container modal-shipping">
+            <div class="modal__title">
+                <span class="modal__title__txt">Способ доставки</span>
+                <button class="modal__title__btn">
+                    <img class="modal__title__img" src="assets/img/close.svg" alt="close">
+                </button>
+            </div>
+            <form class="modal__shipping">
+                <div class="modal__shipping__container__top">
+                    <div class="modal__shipping__top__options" id="shipping-point" onclick="chooseShipping()">В пункт
+                        выдачи</div>
+                    <div class="modal__shipping__top__options" id="shipping-carrier" onclick="chooseShipping()">
+                        Курьером
+                    </div>
+                </div>
+                <div class="modal__shipping__container__bottom">
+                    <div class="modal__shipping__title">Мои адреса</div>
+                    <div class="modal__shipping__options">
+                        <span class="modal__shipping__input">
+                            <div class="radio">
+                                <input type="radio" name="address" id="firstAddress">
+                            </div>
+                        </span>
+                        <label for="firstAddress" class="modal__shipping__label">Бишкек, улица Табышалиева, 57</label>
+                        <button class="modal__shipping__btn">
+                            <img class="modal__shipping__img" src="assets/img/delete.svg" alt="delete">
+                        </button>
+                    </div>
+                    <div class="modal__shipping__options">
+                        <span class="modal__shipping__input">
+                            <div class="radio">
+                                <input type="radio" name="address" id="firstAddress">
+                            </div>
+                        </span>
+                        <label for="secondAddress" class="modal__shipping__label">Бишкек, улица Жукеева-Пудовкина,
+                            77/1</label>
+                        <button class="modal__shipping__btn">
+                            <img class="modal__shipping__img" src="assets/img/delete.svg" alt="delete">
+                        </button>
+                    </div>
+                    <div class="modal__shipping__options">
+                        <span class="modal__shipping__input">
+                            <div class="radio">
+                                <input type="radio" name="address" id="firstAddress">
+                            </div>
+                        </span>
+                        <label for="thirdAddress" class="modal__shipping__label">Бишкек, микрорайон Джал, улица
+                            Ахунбаева
+                            Исы,
+                            67/1</label>
+                        <button class="modal__shipping__btn">
+                            <img class="modal__shipping__img" src="assets/img/delete.svg" alt="delete">
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="modal__btn__container">
+                <button class="modal__btn">Выбрать</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-payment">
+        <div class="modal__container modal-payment">
+            <div class="modal__title">
+                <span class="modal__title__txt">Способ оплаты</span>
+                <button class="modal__title__btn">
+                    <img class="modal__title__img" src="assets/img/close.svg" alt="close">
+                </button>
+            </div>
+            <form class="modal__payment">
+                <div class="modal__payment__option">
+                    <div class="radio">
+                        <input type="radio" name="card" id="firstCard">
+                    </div>
+                    <label for="firstCard" class="modal__payment__label">
+                        <span class="modal__payment__card" id="modal__payment__mir">
+                            <img src="assets/img/mir.svg" alt="mir">
+                        </span>
+                        <span>1234 56•• •••• 1234</span>
+                    </label>
+                </div>
+                <div class="modal__payment__option">
+                    <div class="radio">
+                        <input type="radio" name="card" id="secondCard">
+                    </div>
+                    <label for="secondCard" class="modal__payment__label">
+                        <span class="modal__payment__card modal__card">
+                            <img src="assets/img/visa.svg" alt="visa">
+                        </span>
+                        <span>1234 56•• •••• 1234</span>
+                    </label>
+                </div>
+                <div class="modal__payment__option">
+                    <div class="radio">
+                        <input type="radio" name="card" id="thirdCard">
+                    </div>
+                    <label for="thirdCard" class="modal__payment__label">
+                        <span class="modal__payment__card modal__card">
+                            <img src="assets/img/mastercard.svg" alt="mastercard">
+                        </span>
+                        <span>1234 56•• •••• 1234</span>
+                    </label>
+                </div>
+                <div class="modal__payment__option">
+                    <div class="radio">
+                        <input type="radio" name="card" id="fourthCard">
+                    </div>
+                    <label for="fourthCard" class="modal__payment__label">
+                        <span class="modal__payment__card modal__card">
+                            <img src="assets/img/maestro.svg" alt="maestro">
+                        </span>
+                        <span>1234 56•• •••• 1234</span>
+                    </label>
+                </div>
+            </form>
+            <div class="modal__btn__container">
+                <button class="modal__btn">Выбрать</button>
+            </div>
+        </div>
+    </div>
+
     <nav class="navbar">
         <button class="navbar__btn">
             <img class="navbar__btn__img" src="assets/img/navbar__home.svg" alt="home">
