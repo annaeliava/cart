@@ -61,9 +61,9 @@
                 <div class="cart__selected__container">
                     <div class="cart__selectAll">
                         <input type="checkbox" name="selectAll" id="cart">
-                        <label for="cart" class="cart__selectAll__txt">Выбрать все</label>
+                        <label for="cart" class="cart__selectAll__txt" id="cart-label">Выбрать все</label>
                         <button class="cart__hide__btn" onclick="hideCart()">
-                            <img class="cart__hide__img" src="assets/img/hide-btn.svg" alt="hide">
+                            <img id="cart-hide-img" class="cart__hide__img" src="assets/img/hide-btn.svg" alt="hide">
                         </button>
                     </div>
                     <div class="cart__selected">
@@ -74,15 +74,14 @@
                 <div class="cart__notinstock">
                     <div class="notinstock__title">
                         <div class="notinstock__title__txt">Отсутствуют · <span>3</span> товара</div>
-                        <button class="cart__hide__btn">
-                            <img class="cart__hide__img" src="assets/img/hide-btn.svg" alt="hide">
+                        <button class="cart__hide__btn" onclick="hideNotInStock()">
+                            <img id="notinstock-hide-img" class="cart__hide__img" src="assets/img/hide-btn.svg"
+                                alt="hide">
                         </button>
                     </div>
                     <div class="notinstock__items__container">
-                        <div class="cart__hr"></div>
-                        <div class="notinstock__items">
-
-                        </div>
+                        <div id="notinstock__hr" class="cart__hr"></div>
+                        <div id="notinstock" class="notinstock__items"></div>
                     </div>
                 </div>
                 <div class="cart__form__container">

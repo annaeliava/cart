@@ -39,9 +39,42 @@ function chooseShipping() {
 
 function hideCart() {
     let div = document.getElementById("cart__main");
+    let img = document.getElementById("cart-hide-img");
+    let label = document.getElementById("cart-label");
+    let input = document.getElementById("cart");
+
     if (div.style.display === 'none') {
         div.style.display = 'block';
+        img.src = './assets/img/hide-btn.svg';
+        label.innerHTML = 'Выбрать все';
+        input.style.display = 'block';
     } else {
         div.style.display = 'none';
+        img.src = './assets/img/show-btn.svg';
+        label.innerHTML = `<span class="cart__selectAll__modified">266 товаров · 2 100 569 сом</span>`;
+        input.style.display = 'none';
     }
+}
+
+function hideNotInStock() {
+    let div = document.getElementById("notinstock");
+    let hr = document.getElementById("notinstock__hr");
+    let img = document.getElementById("notinstock-hide-img");
+
+    if (div.style.display === 'none') {
+        div.style.display = 'block';
+        hr.style.display = 'block';
+        img.src = './assets/img/hide-btn.svg';
+    } else {
+        div.style.display = 'none';
+        hr.style.display = 'none';
+        img.src = './assets/img/show-btn.svg';
+    }
+}
+
+function likeItem(id) {
+    let imgId = 'like-' + id;
+    let img = document.getElementById(imgId);
+    localStorage.setItem(imgId, 'liked');
+    img.classList.toggle('btn__liked');
 }
