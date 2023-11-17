@@ -36,6 +36,9 @@
                 <button class="header__btn" id="header__cart">
                     <span class="header__btn__img__cart">
                         <img class="header__btn__img" src="assets/img/header__cart.svg" alt="cart">
+                        <span class="header__btn__cart__quantity">
+                            <span id="cart-quantity">3</span>
+                        </span>
                     </span>
                     <span class="header__btn__txt">Корзина</span>
                 </button>
@@ -60,7 +63,7 @@
             <div class="cart">
                 <div class="cart__selected__container">
                     <div class="cart__selectAll">
-                        <input type="checkbox" name="selectAll" id="cart">
+                        <input type="checkbox" name="selectAll" id="cart" onclick="toggleSelectBtn()">
                         <label for="cart" class="cart__selectAll__txt" id="cart-label">Выбрать все</label>
                         <button class="cart__hide__btn" onclick="hideCart()">
                             <img id="cart-hide-img" class="cart__hide__img" src="assets/img/hide-btn.svg" alt="hide">
@@ -73,7 +76,7 @@
                 </div>
                 <div class="cart__notinstock">
                     <div class="notinstock__title">
-                        <div class="notinstock__title__txt">Отсутствуют · <span>3</span> товара</div>
+                        <div class="notinstock__title__txt">Отсутствуют&nbsp;·&nbsp;<span id="notinstock-quantity">3</span>&nbsp;товара</div>
                         <button class="cart__hide__btn" onclick="hideNotInStock()">
                             <img id="notinstock-hide-img" class="cart__hide__img" src="assets/img/hide-btn.svg"
                                 alt="hide">
@@ -87,14 +90,60 @@
                 <div class="cart__form__container">
                     <div class="cart__form cart__form__shipping">
                         <div class="cart__form__title">
-                            <span class="cart__form__title__txt">Способ доставки</span>
+                            <div class="cart__form__title__txt">Способ доставки</div>
                             <button class="cart__form__edit" onclick="showShippingModal()">Изменить</button>
                         </div>
-                        <div></div>
+                        <div class="shipping__container">
+                            <div class="shipping__top">
+                                <div class="shipping__top__row">
+                                    <div class="shipping__top__title">Пункт выдачи</div>
+                                    <div class="shipping__top__address__container">
+                                        <div class="shipping__top__address" id="address-form">Бишкек, улица Ахматбека Суюмбаева, 12/1
+                                        </div>
+                                        <div class="shipping__schedule__container">
+                                            <div class="shipping__rating__container">
+                                                <span class="shipping__rating__img__container">
+                                                    <img class="shipping__rating__img" src="assets/img/star_fill.svg"
+                                                        alt="star">
+                                                </span>
+                                                <span class="shipping__rating">4.99</span>
+                                            </div>
+                                            <div class="shipping__schedule">Ежедневно с 10 до 21 </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="shipping__top__row">
+                                    <div class="shipping__top__title">Стоимость доставки</div>
+                                    <div class="shipping__top__price">Бесплатно</div>
+                                </div>
+                                <div class="shipping__top__row">
+                                    <div class="shipping__top__title">5—6 февраля</div>
+                                    <div class="shipping__top__items__container" id="shipping-top-items"></div>
+                                </div>
+                                <div class="shipping__top__row">
+                                    <div class="shipping__top__title">7—8 февраля</div>
+                                    <div class="shipping__top__detail" id="shipping-bottom-items"></div>
+                                </div>
+                            </div>
+                            <div class="shipping__bottom">
+                                <div class="shipping__bottom__img__container">
+                                    <img class="shipping__bottom__img" src="assets/img/price-shipping.svg"
+                                        alt="checkmark-img">
+                                </div>
+                                <div class="shipping__bottom__txt">
+                                    <span class="shipping__bottom__txt__text">Обратная доставка товаров на склад при отказе —</span>
+                                    <span class="shipping__bottom__txt__underline__container">
+                                        <span class="shipping__bottom__txt__underline">бесплатно</span>
+                                        <img class="shipping__bottom__txt__underline__img"
+                                            src="assets/img/shipping-payment__underline.svg" alt="underline">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="cart__form cart__form__payment">
                         <div class="cart__form__title">
-                            <span class="cart__form__title__txt">Способ оплаты</span>
+                            <div class="cart__form__title__txt">Способ оплаты</div>
                             <button class="cart__form__edit" onclick="showCardModal()">Изменить</button>
                         </div>
                         <div class="cart__payment">
@@ -112,7 +161,38 @@
                     </div>
                     <div class="cart__form cart__form__receiver">
                         <div class="cart__form__title__txt">Получатель</div>
-
+                        <form action="#" class="form__container" id="form">
+                            <div class="form__info__container">
+                                <div class="form__input__container">
+                                    <label for="name-form" class="form__input__txt" id="form__label__name"></label>
+                                    <input class="form__input" placeholder="Имя" type="text" name="name-form" id="name-form">
+                                </div>
+                                <div class="form__input__container">
+                                    <label for="surname-form" class="form__input__txt" id="form__label__surname"></label>
+                                    <input class="form__input" placeholder="Фамилия" type="text" name="surname-form"
+                                        id="surname-form">
+                                </div>
+                            </div>
+                            <div class="form__info__container">
+                                <div class="form__input__container">
+                                    <label for="email-form" class="form__input__txt" id="form__label__email"></label>
+                                    <input class="form__input" placeholder="Почта" type="email" name="email-form" id="email-form">
+                                </div>
+                                <div class="form__input__container">
+                                    <label for="tel-form" class="form__input__txt" id="form__label__tel">Телефон</label>
+                                    <input class="form__input__tel" placeholder="+7 988 123-45-67" type="tel" name="tel-form"
+                                        id="tel-form">
+                                </div>
+                                <div class="form__input__inn__section">
+                                    <div class="form__input__inn__container">
+                                        <label for="inn-form" class="form__input__txt" id="form__label__inn"></label>
+                                        <input class="form__input__inn" placeholder="ИНН" type="number" name="inn-form"
+                                            id="inn-form">
+                                    </div>
+                                    <span class="form__input__inn__txt">Для таможенного оформления</span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -123,7 +203,7 @@
                     <div class="total__price__container">
                         <span id="total__title">Итого</span>
                         <span>
-                            <span id="total__price">2 101 063</span>
+                            <span id="total__price">0</span>
                             <span id="total__currency"> сом</span>
                         </span>
                     </div>
@@ -134,14 +214,14 @@
                                 <span> товара</span>
                             </span>
                             <span>
-                                <span id="total__fullprice">2 302 048</span>
+                                <span id="total__fullprice">0</span>
                                 <span> сом</span>
                             </span>
                         </div>
                         <div class="total__price__container">
                             <span>Скидка</span>
                             <span>
-                                <span id="total__discount">−200 985</span>
+                                <span id="total__discount">0</span>
                                 <span> сом</span>
                             </span>
                         </div>
@@ -194,9 +274,9 @@
                         </div>
                     </div>
                     <div class="total__card__bottom">
-                        <form class="total__card__pay">
-                            <input class="total__card__pay__input" type="checkbox" name="" id="">
-                            <label class="total__card__pay__txt">Списать оплату сразу</label>
+                        <form action="#" class="total__card__pay">
+                            <input class="total__card__pay__input" type="checkbox" name="payment-form" id="payment-form">
+                            <label for="payment-form" class="total__card__pay__txt">Списать оплату сразу</label>
                         </form>
                         <div class="total__card__warning">Спишем оплату с карты при получении</div>
                     </div>
@@ -215,16 +295,16 @@
                         </span>
                     </div>
                     <div class="total__card__bottom">
-                        <form class="total__card__pay">
-                            <input class="total__card__pay__input" type="checkbox" name="" id="">
-                            <label class="total__card__pay__txt">Списать оплату сразу</label>
+                        <form action="#" class="total__card__pay">
+                            <input class="total__card__pay__input" type="checkbox" name="payment-form" id="payment-form">
+                            <label for="payment-form" class="total__card__pay__txt">Списать оплату сразу</label>
                         </form>
                         <div class="total__card__warning">Спишем оплату с карты при получении</div>
                     </div>
                 </div>
             </div>
             <div class="total__btn__container">
-                <button class="total__btn">Заказать</button>
+                <button type="submit" class="total__btn">Заказать</button>
                 <div class="total__btn__agreement">
                     <img class="total__btn__img" src="assets/img/total__checkmark.svg" alt="checkmark">
                     <span class="total__btn__txt">Соглашаюсь с
@@ -251,31 +331,31 @@
             </div>
             <form class="modal__shipping">
                 <div class="modal__shipping__container__top">
-                    <div class="modal__shipping__top__options" id="shipping-point" onclick="chooseShipping()">В пункт
+                    <div class="modal__shipping__top__options" id="shipping-point" onclick="chooseShipping(this)">В пункт
                         выдачи</div>
-                    <div class="modal__shipping__top__options" id="shipping-carrier" onclick="chooseShipping()">
+                    <div class="modal__shipping__top__options" id="shipping-carrier" onclick="chooseShipping(this)">
                         Курьером
                     </div>
                 </div>
                 <div class="modal__shipping__container__bottom">
                     <div class="modal__shipping__title">Мои адреса</div>
                     <div class="modal__shipping__options">
-                        <span class="modal__shipping__input">
+                        <div class="modal__shipping__input">
                             <div class="radio">
                                 <input type="radio" name="address" id="firstAddress">
                             </div>
-                        </span>
+                        </div>
                         <label for="firstAddress" class="modal__shipping__label">Бишкек, улица Табышалиева, 57</label>
                         <button class="modal__shipping__btn">
                             <img class="modal__shipping__img" src="assets/img/delete.svg" alt="delete">
                         </button>
                     </div>
                     <div class="modal__shipping__options">
-                        <span class="modal__shipping__input">
+                        <div class="modal__shipping__input">
                             <div class="radio">
-                                <input type="radio" name="address" id="firstAddress">
+                                <input type="radio" name="address" id="secondAddress">
                             </div>
-                        </span>
+                        </div>
                         <label for="secondAddress" class="modal__shipping__label">Бишкек, улица Жукеева-Пудовкина,
                             77/1</label>
                         <button class="modal__shipping__btn">
@@ -283,11 +363,11 @@
                         </button>
                     </div>
                     <div class="modal__shipping__options">
-                        <span class="modal__shipping__input">
+                        <div class="modal__shipping__input">
                             <div class="radio">
-                                <input type="radio" name="address" id="firstAddress">
+                                <input type="radio" name="address" id="thirdAddress">
                             </div>
-                        </span>
+                        </div>
                         <label for="thirdAddress" class="modal__shipping__label">Бишкек, микрорайон Джал, улица
                             Ахунбаева
                             Исы,
@@ -384,6 +464,9 @@
 
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/cart.js"></script>
+    <script src="./assets/js/form.js"></script>
+    <script src="./assets/js/modals.js"></script>
+    <script src="./assets/js/info.js"></script>
 </body>
 
 </html>

@@ -1,47 +1,10 @@
-function showShippingModal() {
-    let modal = document.getElementById('modal-shipping');
-    modal.style.display = 'flex';
-}
-
-function closeModalShipping() {
-    let modal = document.getElementById('modal-shipping');
-    modal.style.display = 'none';
-}
-
-function showCardModal() {
-    let modal = document.getElementById('modal-payment');
-    modal.style.display = 'flex';
-}
-
-function closeModalPayment() {
-    let modal = document.getElementById('modal-payment');
-    modal.style.display = 'none';
-}
-
-function chooseShipping() {
-    let pickpoint = document.getElementById('shipping-point');
-    let carrier = document.getElementById('shipping-carrier');
-
-    if (carrier.onclick.value === 'true') {
-        if (pickpoint.hasAttribute('style', 'border-color:#CB11AB')) {
-            pickpoint.style.borderColor = 'rgba(203, 17, 171, 0.15)';
-        }
-        carrier.style.borderColor = '#CB11AB';
-        console.log('asdad')
-    } else if (pickpoint.onclick.value === 'true') {
-        if (carrier.hasAttribute('style', 'border-color:#CB11AB')) {
-            carrier.style.borderColor = 'rgba(203, 17, 171, 0.15)';
-        }
-        pickpoint.style.borderColor = '#CB11AB';
-        console.log('pressed')
-    }
-}
-
 function hideCart() {
     let div = document.getElementById("cart__main");
     let img = document.getElementById("cart-hide-img");
     let label = document.getElementById("cart-label");
     let input = document.getElementById("cart");
+    let total = document.getElementById('total__price').textContent;
+    let quantity = document.getElementById('total__items').textContent;
 
     if (div.style.display === 'none') {
         div.style.display = 'block';
@@ -51,7 +14,7 @@ function hideCart() {
     } else {
         div.style.display = 'none';
         img.src = './assets/img/show-btn.svg';
-        label.innerHTML = `<span class="cart__selectAll__modified">266 товаров · 2 100 569 сом</span>`;
+        label.innerHTML = `<span class="cart__selectAll__modified">${quantity} товаров · ${total} сом</span>`;
         input.style.display = 'none';
     }
 }
@@ -70,6 +33,40 @@ function hideNotInStock() {
         hr.style.display = 'none';
         img.src = './assets/img/show-btn.svg';
     }
+}
+
+function showBtns(id) {
+    if(document.getElementById('left-' + id) === null) {
+        let btns = document.getElementById('btns-' + id);
+        btns.style.display = 'flex';
+    } else {
+    let div = document.getElementById('left-' + id);
+    let btns = document.getElementById('btns-' + id);
+    div.style.display = 'flex';
+    btns.style.display = 'flex';
+    }
+}
+
+function hideBtns(id) {
+    if(document.getElementById('left-' + id) === null) {
+        let btns = document.getElementById('btns-' + id);
+        btns.style.display = 'none';
+    } else {
+    let div = document.getElementById('left-' + id);
+    let btns = document.getElementById('btns-' + id);
+    div.style.display = 'none';
+    btns.style.display = 'none';
+    }
+}
+
+function showNotInstockBtns(id) {
+    let btns = document.getElementById('notinstock-btns-' + id);
+    btns.style.display = 'flex';
+}
+
+function hideNotInstockBtns(id) {
+    let btns = document.getElementById('notinstock-btns-' + id);
+    btns.style.display = 'none';
 }
 
 function likeItem(id) {
