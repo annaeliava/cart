@@ -107,14 +107,14 @@ function showItems(data) {
                         <div class="item__company__container">
                             <span class="item__company__name">${piece.company}</span>
                             <img onmouseover="mouseOver(${piece.id})" onmouseout="mouseOut(${piece.id})" class="item__company__icon" src='/assets/img/warning.svg'/>
+                            <div id="company__info-${piece.id}" class="company__info">
+                                <div class="company__name">${piece.company}</div>
+                                <div class="company__txt">ОГРН: 5167746237148</div>
+                                <div class="company__txt">129337, Москва, улица Красная Сосна, 2, корпус 1, стр. 1, помещение 2, офис 34</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="company__info-${piece.id}" class="company__info">
-                <div class="company__name">${piece.company}</div>
-                <div class="company__txt">ОГРН: 5167746237148</div>
-                <div class="company__txt">129337, Москва, улица Красная Сосна, 2, корпус 1, стр. 1, помещение 2, офис 34</div>
             </div>
             <div class="item__second">
                 <div class="item__edit">
@@ -122,12 +122,12 @@ function showItems(data) {
                         <button type="button" class="btn item__edit__less" id="less-${piece.id}" onclick="deleteItem(this)">
                             <div class="item__edit__txt" id="item-less">−</div>
                         </button>
-                        <input type="number" class="item__edit__quantity" id="quantity-${piece.id}" value="${piece.quantity}">
+                        <input type="number" class="item__edit__quantity" id="quantity-${piece.id}" value="${piece.quantity}"/>
                         <button type="button" class="btn item__edit__more" id="add-${piece.id}" onclick="addItem(this)">
                             <div class="item__edit__txt" id="item-more">+</div>
                         </button>
                     </div>
-                        <div class="item__left" id="left-${piece.id}">${piece.instock < 10 ? `Осталось ${piece.instock - piece.quantity} шт.`: ''}</div>
+                        <div class="item__left" id="left-${piece.id}">${piece.instock < 2 ? `Осталось ${piece.instock - piece.quantity} шт.`: ''}</div>
                     <div class="btn__item" id="btns-${piece.id}">
                         <button class="btn btn__like" onclick="likeItem(${piece.id})">
                             <img id="like-${piece.id}" class="btn__like__img" src="/assets/img/like.svg" />
@@ -213,8 +213,10 @@ function shippingItems(data) {
         content += `<div class="shipping__item__container">
             <img class="shipping__item__img" src="${piece.img}" />
             ${
-                piece.quantity > 1? 
-                `<div class="shipping__item__txt">${piece.quantity}</div>`
+                piece.quantity > 0 ? 
+                `<div class="shipping__item__txt" id="shipping-quantity-${piece.id}">
+                    ${piece.quantity >= 184 ? 184 : piece.quantity}
+                </div>`
                 : 
                 ``
             }
@@ -232,8 +234,8 @@ function anotherShippingItems(data) {
         content += `<div class="shipping__item__container">
         <img class="shipping__item__img" src="${item.img}" />
         ${
-            item.quantity > 1? 
-            `<div class="shipping__item__txt">${item.quantity}</div>`
+            item.quantity > 0? 
+            `<div class="shipping__item__txt" id="shipping-quantity-another-${item.id}">16</div>`
             : 
             ``
         }
@@ -248,22 +250,35 @@ function toggleItem(e) {
 
     let discount = Number(document.getElementById(`discount-${id}`).textContent.replace(/\D/g,''));
     let fullprice = Number(document.getElementById(`fullprice-${id}`).textContent.replace(/\D/g,''));
+    let quantity = Number(document.getElementById(`quantity-${id}`).value.replace(/\D/g,''));
 
     let cart_total = document.getElementById('total__price');
     let cart_fullprice = document.getElementById('total__fullprice');
     let cart_discount = document.getElementById('total__discount');
+    let cart_quantity = document.getElementById('cart-quantity');
+    let cart__mobile = document.getElementById('cart-mobile-quantity');
+    let btn__price = document.getElementById('cart-select-price');
+    let btn__quantity = document.getElementById('cart__selectAll__quantity');
+    let total__quantity = document.getElementById('total__items');
 
     let prev_total = Number(cart_total.textContent.replace(/\D/g,''));
     let prev_fullprice = Number(cart_fullprice.textContent.replace(/\D/g,''));
     let prev_discount = Number(cart_discount.textContent.replace(/\D/g,''));
+    let prev_quantity = Number(cart_quantity.textContent);
+    let prev_quantity_mobile = Number(cart__mobile.textContent);
 
     if(e.checked){
         if(cart_total > 10000 || cart_fullprice > 10000 || discount > 10000 || fullprice > 10000 || prev_total > 10000 ) {
             let sumtotal = prev_total + discount;
             cart_total.innerHTML = sumtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+            btn__price.innerHTML = sumtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
             let sumfullprice = prev_fullprice + fullprice;
             cart_fullprice.innerHTML = sumfullprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
             let diff = discount - fullprice;
+            cart_quantity.innerText = prev_quantity + quantity;
+            btn__quantity.innerText = prev_quantity + quantity;
+            total__quantity.innerText = prev_quantity + quantity;
+            cart__mobile.innerHTML = (prev_quantity_mobile + quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
             if(prev_discount === 0) {
                 let sumdiscount = prev_discount + diff;
                 cart_discount.innerHTML = sumdiscount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
@@ -274,6 +289,11 @@ function toggleItem(e) {
         } else {
             cart_total.innerText = prev_total + discount;
             cart_fullprice.innerText = prev_fullprice + fullprice;
+            cart_quantity.innerText = prev_quantity + quantity;
+            cart__mobile.innerText = prev_quantity_mobile + quantity;
+            btn__price.innerText = prev_total + discount;
+            btn__quantity.innerText = prev_quantity + quantity;
+            total__quantity.innerText = prev_quantity + quantity;
             let diff = discount - fullprice;
             if(prev_discount === 0) {
                 cart_discount.innerText = prev_discount + diff;
@@ -282,7 +302,7 @@ function toggleItem(e) {
             }
         }
     } else {
-        if(cart_total > 10000 || cart_fullprice > 10000 || discount > 10000 || fullprice > 10000 ) {
+        if(cart_total > 10000 || cart_fullprice > 10000 || discount > 10000 || fullprice > 10000 || prev_total > 10000 ) {
             let sumtotal = prev_total - discount;
             cart_total.innerHTML = sumtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
             let sumfullprice = prev_fullprice - fullprice;
@@ -290,11 +310,21 @@ function toggleItem(e) {
             let diff = discount - fullprice;
             let sumdiscount = -(prev_discount + diff);
             cart_discount.innerHTML = sumdiscount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+            btn__price.innerHTML = sumtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+            btn__quantity.innerHTML = (prev_quantity - quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+            total__quantity.innerHTML = (prev_quantity - quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+            cart_quantity.innerHTML = (prev_quantity - quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+            cart__mobile.innerText = (prev_quantity_mobile - quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
         } else {
             cart_total.innerText = prev_total - discount;
             cart_fullprice.innerText = prev_fullprice - fullprice;
             let diff = discount - fullprice;
             cart_discount.innerText = -(prev_discount + diff);
+            btn__price.innerText = prev_total - discount;
+            btn__quantity.innerText = prev_quantity - quantity;
+            total__quantity.innerText = prev_quantity - quantity;
+            cart_quantity.innerText = prev_quantity - quantity;
+            cart__mobile.innerText = prev_quantity_mobile - quantity;
         }
     }
 }
@@ -305,6 +335,11 @@ function toggleSelectBtn() {
     let cart_total = document.getElementById('total__price');
     let cart_fullprice = document.getElementById('total__fullprice');
     let cart_discount = document.getElementById('total__discount');
+    let cart_quantity = document.getElementById('cart-quantity');
+    let cart__mobile = document.getElementById('cart-mobile-quantity');
+    let total__quantity = document.getElementById('total__items');
+    let btn__quantity = document.getElementById('cart__selectAll__quantity');
+    let btn__price = document.getElementById('cart-select-price');
 
     // total price with discounts
     let allnum = [];
@@ -344,6 +379,18 @@ function toggleSelectBtn() {
         return Number(a);
     }).reduce((a,b) => a+b, 0);
 
+    // quantity 
+
+    let allquantity = [];
+
+    document.querySelectorAll('.item__edit__quantity').forEach((a) => {
+        return allquantity.push(a.value.replace(/\D/g,''));
+    });
+
+    let quantity = allquantity.map((d) => {
+        return Number(d);
+    }).reduce((a,b) => a+b,0);
+
     for(let i=0; i<checkboxes.length; i++) {
         if(selectall[0].checked === true) {
             checkboxes[i].checked=true;
@@ -352,24 +399,44 @@ function toggleSelectBtn() {
                 cart_total.innerHTML = prices_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
                 cart_fullprice.innerHTML = prices_fullprices.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
                 cart_discount.innerHTML = (prices_total - prices_fullprices).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+                cart_quantity.innerText = quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+                cart__mobile.innerHTML = quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+                total__quantity.innerHTML = quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+                btn__price.innerHTML = prices_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+                btn__quantity.innerHTML = quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;")
             } else {
                 cart_total.innerText = prices_total;
                 cart_fullprice.innerText = prices_fullprices;
                 cart_discount.innerText = prices_total - prices_fullprices;
+                cart_quantity.innerText = quantity;
+                cart__mobile.innerHTML = quantity;
+                total__quantity.innerText = quantity;
+                btn__price.innerText = prices_total;
+                btn__quantity.innerText = quantity;
             }
         } else {
             checkboxes[i].checked=false;
             cart_total.innerText = 0;
             cart_fullprice.innerText = 0;
             cart_discount.innerText = 0;
+            cart_quantity.innerText = 0;
+            cart__mobile.innerHTML = 0;
+            total__quantity.innerText = 0;
+            btn__price.innerText = 0;
+            btn__quantity.innerText = 0;
         }
     }
 }
 
-function sumPrice(price_discount, price, e, id) {
+function sumPrice() {
     let cart_total = document.getElementById('total__price');
     let cart_fullprice = document.getElementById('total__fullprice');
     let cart_discount = document.getElementById('total__discount');
+    let cart_quantity_total = document.getElementById('total__items');
+    let cart_quantity = document.getElementById('cart-quantity');
+    let cart__mobile = document.getElementById('cart-mobile-quantity');
+    let btn__quantity = document.getElementById('cart__selectAll__quantity');
+    let btn__price = document.getElementById('cart-select-price');
 
     // checking checkboxes 
 
@@ -395,6 +462,10 @@ function sumPrice(price_discount, price, e, id) {
 
     let prices_mobile = [];
 
+    // show quantity in cart 
+
+    let quantity = [];
+
     for(let i=0; i<checked_id.length; i++){
         let id = checked_id[i].slice(-1);
         
@@ -403,6 +474,8 @@ function sumPrice(price_discount, price, e, id) {
 
         prices.push(Number(document.getElementById(`discount-${id}`).textContent.replace(/\D/g,'')));
         prices_mobile.push(Number(document.getElementById(`discount-mobile-${id}`).textContent.replace(/\D/g,'')));
+
+        quantity.push(Number(document.getElementById(`quantity-${id}`).value.replace(/\D/g,'')));
     }
     
         // with discount
@@ -423,16 +496,32 @@ function sumPrice(price_discount, price, e, id) {
             return Number(a);
         }).reduce((a,b) => a+b, 0);
 
+        // quantity
+
+        let quantity_ = quantity.map((a) => {
+            return Number(a);
+        }).reduce((a,b) => a+b, 0);
+
         if(prices_total > 10000 || prices_fullprices > 10000) {
             cart_total.innerHTML = prices_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
             cart_total.innerHTML = prices_total_mobile.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
             cart_fullprice.innerHTML = prices_fullprices.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
             cart_fullprice.innerHTML = prices_fullprices_mobile.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
             cart_discount.innerHTML = (prices_total - prices_fullprices).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
+            cart_quantity.innerText = quantity_;
+            cart_quantity_total.innerText = quantity_;
+            cart__mobile.innerText = quantity_;
+            btn__quantity.innerText = quantity_;
+            btn__price.innerHTML = prices_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&thinsp;");
         } else {
             cart_total.innerText = prices_total;
             cart_fullprice.innerText = prices_fullprices;
             cart_discount.innerText = prices_total - prices_fullprices;
+            cart_quantity.innerText = quantity_;
+            cart_quantity_total.innerText = quantity_;
+            cart__mobile.innerText = quantity_;
+            btn__quantity.innerText = quantity_;
+            btn__price.innerHTML = prices_total;
         }
 }
 
@@ -443,6 +532,8 @@ function deleteItem(e) {
     let quantity = document.querySelector(`#quantity-${id}`);
     let quantity_num = Number(quantity.value);
     let checkbox = document.getElementById(`checkbox-${id}`);
+    let shipping_quantity = document.getElementById(`shipping-quantity-${id}`);
+    let another_shipping_quantity = document.getElementById(`shipping-quantity-another-${id}`);
 
     let num;  
     let price;
@@ -466,27 +557,37 @@ function deleteItem(e) {
         let result = quantity_num - 1;
         quantity.value = result;
 
+        if(Number(quantity.value) < 184) {
+            shipping_quantity.innerText = result;
+        } else {
+            another_shipping_quantity.textContent = result - 184;
+        }
+
         showLeftItems(id, num, result);
         calcCart(price, price_discount, result, id);
 
         if(checkbox.checked) {
-            sumPrice(price_discount, price, e, id);
+            sumPrice();
         }
 
     } else if(quantity_num === 1) {
         let result = quantity_num - 1;
         quantity.value = result;
+        
+        if(Number(quantity.value) < 184) {
+            shipping_quantity.textContent = result;
+        } else {
+            another_shipping_quantity.textContent = result - 184;
+        }
 
         showLeftItems(id, num, result);
         calcCart(price, price_discount, result, id);
 
         
         if(checkbox.checked) {
-            sumPrice(price_discount, price, e, id);
+            sumPrice();
         }
 
-        btn_less.disabled = true;
-    } else {
         btn_less.disabled = true;
     }
 }
@@ -498,6 +599,8 @@ function addItem(e) {
     let quantity = document.querySelector(`#quantity-${id}`);
     let quantity_num = Number(quantity.value);
     let checkbox = document.getElementById(`checkbox-${id}`);
+    let shipping_quantity = document.getElementById(`shipping-quantity-${id}`);
+    let another_shipping_quantity = document.getElementById(`shipping-quantity-another-${id}`);
 
     let num;
     let price;
@@ -520,26 +623,32 @@ function addItem(e) {
     if(quantity_num < num && num - quantity_num != 1) {
         let result = quantity_num + 1;
         quantity.value = result;
+        
+        if(Number(quantity.value) < 184) {
+            shipping_quantity.textContent = result;
+        } else {
+            another_shipping_quantity.textContent = result - 184;
+        }
 
         showLeftItems(id, num, result);
         calcCart(price, price_discount, result, id);
     
         if(checkbox.checked) {
-            sumPrice(price_discount, price, e, id);
+            sumPrice();
         }
     } else if (num - quantity_num === 1) {
         let result = quantity_num + 1;
         quantity.value = result;
 
+        shipping_quantity.textContent = result;
+
         showLeftItems(id, num, result);
         calcCart(price, price_discount, result, id);
 
         if(checkbox.checked) {
-            sumPrice(price_discount, price, e, id);
+            sumPrice();
         }
 
-        btn_add.disabled = true;
-    } else {
         btn_add.disabled = true;
     }
 }

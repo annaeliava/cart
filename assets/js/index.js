@@ -1,21 +1,25 @@
 function hideCart() {
     let div = document.getElementById("cart__main");
     let img = document.getElementById("cart-hide-img");
-    let label = document.getElementById("cart-label");
-    let input = document.getElementById("cart");
+    let label_select = document.getElementById("cart-selectBtn");
     let total = document.getElementById('total__price').textContent;
     let quantity = document.getElementById('total__items').textContent;
+    let price_quantity = document.getElementById('cart__selectAll');
+    let btn__quantity = document.getElementById('cart__selectAll__quantity');
+    let btn__price = document.getElementById('cart-select-price');
 
     if (div.style.display === 'none') {
         div.style.display = 'block';
         img.src = './assets/img/hide-btn.svg';
-        label.innerHTML = 'Выбрать все';
-        input.style.display = 'block';
+        label_select.style.display = 'block';
+        price_quantity.style.display = 'none';
     } else {
         div.style.display = 'none';
         img.src = './assets/img/show-btn.svg';
-        label.innerHTML = `<span class="cart__selectAll__modified">${quantity} товаров · ${total} сом</span>`;
-        input.style.display = 'none';
+        label_select.style.display = 'none';
+        btn__quantity.textContent = quantity;
+        btn__price.textContent = total;
+        price_quantity.style.display = 'block';
     }
 }
 
@@ -74,4 +78,11 @@ function likeItem(id) {
     let img = document.getElementById(imgId);
     localStorage.setItem(imgId, 'liked');
     img.classList.toggle('btn__liked');
+}
+
+function deleteAddress(btn) {
+    let id = btn.id.slice(-1);
+    let id_deleted = `address-${id}`;
+
+    document.getElementById(id_deleted).remove();
 }

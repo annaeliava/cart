@@ -37,7 +37,7 @@
                     <span class="header__btn__img__cart">
                         <img class="header__btn__img" src="assets/img/header__cart.svg" alt="cart">
                         <span class="header__btn__cart__quantity">
-                            <span id="cart-quantity">3</span>
+                            <span id="cart-quantity">0</span>
                         </span>
                     </span>
                     <span class="header__btn__txt">Корзина</span>
@@ -64,7 +64,13 @@
                 <div class="cart__selected__container">
                     <div class="cart__selectAll">
                         <input type="checkbox" name="selectAll" id="cart" onclick="toggleSelectBtn()">
-                        <label for="cart" class="cart__selectAll__txt" id="cart-label">Выбрать все</label>
+                        
+                        <label for="cart" class="cart__selectAll__txt" id="cart-label">
+                            <span id="cart-selectBtn">Выбрать все</span>
+                            <span class="cart__selectAll__modified" id="cart__selectAll">
+                                <span id="cart__selectAll__quantity">0</span>&nbsp;товаров&nbsp;·&nbsp;<span id="cart-select-price">0</span>&nbsp;сом
+                            </span>
+                        </label>
                         <button class="cart__hide__btn" onclick="hideCart()">
                             <img id="cart-hide-img" class="cart__hide__img" src="assets/img/hide-btn.svg" alt="hide">
                         </button>
@@ -132,10 +138,13 @@
                                 </div>
                                 <div class="shipping__bottom__txt">
                                     <span class="shipping__bottom__txt__text">Обратная доставка товаров на склад при отказе —</span>
-                                    <span class="shipping__bottom__txt__underline__container">
+                                    <span class="shipping__bottom__txt__underline__container"  onmouseover="mouseOverPrice()" onmouseout="mouseOutPrice()">
                                         <span class="shipping__bottom__txt__underline">бесплатно</span>
                                         <img class="shipping__bottom__txt__underline__img"
                                             src="assets/img/shipping-payment__underline.svg" alt="underline">
+                                        <span class="total__shipping__underline__info" id="total-shipping-underline-info">
+                                            Если товары вам не подойдут, мы вернем их обратно на склад — это бесплатно
+                                        </span>
                                     </span>
                                 </div>
                             </div>
@@ -149,10 +158,10 @@
                         <div class="cart__payment">
                             <div class="cart__card">
                                 <div class="payment__card">
-                                    <img src="assets/img/mir.svg" alt="mir">
+                                    <img id="card-form-img" src="assets/img/mir.svg" alt="mir">
                                 </div>
                                 <div class="cart__card__details">
-                                    <span class="cart__card__txt">1234 56•• •••• 1234</span>
+                                    <span class="cart__card__txt" id="card-form-num">1234 56•• •••• 1234</span>
                                     <span class="cart__card__txt">01/30</span>
                                 </div>
                             </div>
@@ -161,35 +170,72 @@
                     </div>
                     <div class="cart__form cart__form__receiver">
                         <div class="cart__form__title__txt">Получатель</div>
-                        <form action="#" class="form__container" id="form">
+                        <form action="#" name="customer_form" class="form__container" id="form">
                             <div class="form__info__container">
                                 <div class="form__input__container">
                                     <label for="name-form" class="form__input__txt" id="form__label__name"></label>
-                                    <input class="form__input" placeholder="Имя" type="text" name="name-form" id="name-form">
+                                    <input 
+                                        class="form__input" 
+                                        placeholder="Имя" 
+                                        type="text" 
+                                        name="name-form" 
+                                        id="name-form"
+                                        required
+                                        onchange="validateName()">
+                                    <span class="error" id="error__name">Укажите имя</span>
                                 </div>
                                 <div class="form__input__container">
                                     <label for="surname-form" class="form__input__txt" id="form__label__surname"></label>
-                                    <input class="form__input" placeholder="Фамилия" type="text" name="surname-form"
-                                        id="surname-form">
+                                    <input 
+                                        class="form__input" 
+                                        placeholder="Фамилия" 
+                                        type="text"
+                                        name="surname-form" 
+                                        id="surname-form"
+                                        required
+                                        onchange="validateSurname()">
+                                    <span class="error" id="error__surname">Укажите фамилию</span>
                                 </div>
                             </div>
                             <div class="form__info__container">
                                 <div class="form__input__container">
                                     <label for="email-form" class="form__input__txt" id="form__label__email"></label>
-                                    <input class="form__input" placeholder="Почта" type="email" name="email-form" id="email-form">
+                                    <input 
+                                        class="form__input" 
+                                        placeholder="Почта" 
+                                        type="email" 
+                                        name="email-form" 
+                                        id="email-form"
+                                        required
+                                        onchange="validateEmail()">
+                                    <span class="error" id="error__email">Укажите почту</span>
                                 </div>
                                 <div class="form__input__container">
                                     <label for="tel-form" class="form__input__txt" id="form__label__tel">Телефон</label>
-                                    <input class="form__input__tel" placeholder="+7 988 123-45-67" type="tel" name="tel-form"
-                                        id="tel-form">
+                                    <input 
+                                        class="form__input__tel" 
+                                        placeholder="+7 988 123-45-67" 
+                                        type="tel" 
+                                        name="tel-form" 
+                                        id="tel-form"
+                                        required
+                                        onchange="validatePhone()">
+                                    <span class="error" id="error__phone">Укажите телефон</span>
                                 </div>
                                 <div class="form__input__inn__section">
                                     <div class="form__input__inn__container">
                                         <label for="inn-form" class="form__input__txt" id="form__label__inn"></label>
-                                        <input class="form__input__inn" placeholder="ИНН" type="number" name="inn-form"
-                                            id="inn-form">
+                                        <input 
+                                            class="form__input__inn" 
+                                            placeholder="ИНН" 
+                                            type="number" 
+                                            max="12" 
+                                            name="inn-form" 
+                                            id="inn-form"
+                                            required
+                                            onchange="validateInn()">
                                     </div>
-                                    <span class="form__input__inn__txt">Для таможенного оформления</span>
+                                    <span class="form__input__inn__txt" id="error__inn">Для таможенного оформления</span>
                                 </div>
                             </div>
                         </form>
@@ -210,7 +256,7 @@
                     <div class="total__price__details">
                         <div class="total__price__container">
                             <span>
-                                <span id="total__items">203</span>
+                                <span id="total__items">0</span>
                                 <span> товара</span>
                             </span>
                             <span>
@@ -239,7 +285,7 @@
                                 <img class="total__icon" src="assets/img/edit-icon.svg" alt="edit">
                             </button>
                         </div>
-                        <div class="total__address">Бишкек, улица Ахматбека Суюмбаева, 12/1</div>
+                        <div class="total__address" id="total-address">Бишкек, улица Ахматбека Суюмбаева, 12/1</div>
                         <div class="total__date">
                             <span>5–8 фев</span>
                             <img class="total__date__img" src="assets/img/date__underline.svg" alt="underline">
@@ -250,10 +296,13 @@
                             <img class="total__shipping__img" src="assets/img/price-shipping.svg" alt="greencheckmark">
                         </span>
                         <span class="total__shipping__txt">Обратная доставка товаров на склад при отказе — 
-                            <span class="total__shipping__txt__accent">
+                            <span class="total__shipping__txt__accent" id="total-shipping-underline-word" onmouseover="mouseOverPrice()" onmouseout="mouseOutPrice()">
                                 бесплатно
                                 <img class="total__shipping__txt__img" src="assets/img/shipping-payment__underline.svg"
                                     alt="underline">
+                            </span>
+                            <span class="total__shipping__underline__info" id="total-shipping-underline-info">
+                                Если товары вам не подойдут, мы вернем их обратно на склад — это бесплатно
                             </span>
                         </span>
                     </div>
@@ -268,9 +317,9 @@
                         </div>
                         <div class="total__card__container">
                             <span class="total__card__btn">
-                                <img class="total__card__img" src="assets/img/mir.svg" alt="mir">
+                                <img id="total-card-img" class="total__card__img" src="assets/img/mir.svg" alt="mir">
                             </span>
-                            <span class="total__card__details">1234 12•• •••• 1234</span>
+                            <span id="total-card-num" class="total__card__details">1234 12•• •••• 1234</span>
                         </div>
                     </div>
                     <div class="total__card__bottom">
@@ -304,7 +353,9 @@
                 </div>
             </div>
             <div class="total__btn__container">
-                <button type="submit" class="total__btn">Заказать</button>
+                <button type="submit" onclick="submit()" class="total__btn" id="total-btn-txt" form="form">
+                    Заказать
+                </button>
                 <div class="total__btn__agreement">
                     <img class="total__btn__img" src="assets/img/total__checkmark.svg" alt="checkmark">
                     <span class="total__btn__txt">Соглашаюсь с
@@ -339,47 +390,45 @@
                 </div>
                 <div class="modal__shipping__container__bottom">
                     <div class="modal__shipping__title">Мои адреса</div>
-                    <div class="modal__shipping__options">
+                    <div class="modal__shipping__options" id="address-1">
                         <div class="modal__shipping__input">
                             <div class="radio">
-                                <input type="radio" name="address" id="firstAddress">
+                                <input type="radio" name="address" id="1-address">
                             </div>
                         </div>
-                        <label for="firstAddress" class="modal__shipping__label">Бишкек, улица Табышалиева, 57</label>
-                        <button class="modal__shipping__btn">
+                        <label for="1-address" id="label-1" class="modal__shipping__label">Бишкек, улица Табышалиева, 57</label>
+                        <button type="button" id="btn-1" class="modal__shipping__btn" onclick="deleteAddress(this)">
                             <img class="modal__shipping__img" src="assets/img/delete.svg" alt="delete">
                         </button>
                     </div>
-                    <div class="modal__shipping__options">
+                    <div class="modal__shipping__options" id="address-2">
                         <div class="modal__shipping__input">
                             <div class="radio">
-                                <input type="radio" name="address" id="secondAddress">
+                                <input type="radio" name="address" id="2-address">
                             </div>
                         </div>
-                        <label for="secondAddress" class="modal__shipping__label">Бишкек, улица Жукеева-Пудовкина,
+                        <label for="2-address" id="label-2" class="modal__shipping__label">Бишкек, улица Жукеева-Пудовкина,
                             77/1</label>
-                        <button class="modal__shipping__btn">
+                        <button type="button" id="btn-2" class="modal__shipping__btn" onclick="deleteAddress(this)">
                             <img class="modal__shipping__img" src="assets/img/delete.svg" alt="delete">
                         </button>
                     </div>
-                    <div class="modal__shipping__options">
+                    <div class="modal__shipping__options" id="address-3">
                         <div class="modal__shipping__input">
                             <div class="radio">
-                                <input type="radio" name="address" id="thirdAddress">
+                                <input type="radio" name="address" id="3-address">
                             </div>
                         </div>
-                        <label for="thirdAddress" class="modal__shipping__label">Бишкек, микрорайон Джал, улица
-                            Ахунбаева
-                            Исы,
-                            67/1</label>
-                        <button class="modal__shipping__btn">
+                        <label for="3-address" id="label-3" class="modal__shipping__label">Бишкек, микрорайон Джал, улица
+                            Ахунбаева Исы, 67/1</label>
+                        <button type="button" id="btn-3" class="modal__shipping__btn" onclick="deleteAddress(this)">
                             <img class="modal__shipping__img" src="assets/img/delete.svg" alt="delete">
                         </button>
                     </div>
                 </div>
             </form>
             <div class="modal__btn__container">
-                <button class="modal__btn">Выбрать</button>
+                <button type="submit" onclick="chooseAddress()" class="modal__btn">Выбрать</button>
             </div>
         </div>
     </div>
@@ -395,51 +444,51 @@
             <form class="modal__payment">
                 <div class="modal__payment__option">
                     <div class="radio">
-                        <input type="radio" name="card" id="firstCard">
+                        <input type="radio" name="card" id="1-card">
                     </div>
-                    <label for="firstCard" class="modal__payment__label">
+                    <label for="1-card" class="modal__payment__label" id="label-card-1">
                         <span class="payment__card" id="modal__payment__mir">
-                            <img src="assets/img/mir.svg" alt="mir">
+                            <img id="card-img-1" src="assets/img/mir.svg" alt="mir">
                         </span>
-                        <span>1234 56•• •••• 1234</span>
+                        <span id="card-num-1">1234 56•• •••• 1234</span>
                     </label>
                 </div>
                 <div class="modal__payment__option">
                     <div class="radio">
-                        <input type="radio" name="card" id="secondCard">
+                        <input type="radio" name="card" id="2-card" id="label-card-1">
                     </div>
-                    <label for="secondCard" class="modal__payment__label">
+                    <label for="2-card" class="modal__payment__label">
                         <span class="payment__card modal__card">
-                            <img src="assets/img/visa.svg" alt="visa">
+                            <img id="card-img-2" src="assets/img/visa.svg" alt="visa">
                         </span>
-                        <span>1234 56•• •••• 1234</span>
+                        <span id="card-num-2">1234 56•• •••• 1234</span>
                     </label>
                 </div>
                 <div class="modal__payment__option">
                     <div class="radio">
-                        <input type="radio" name="card" id="thirdCard">
+                        <input type="radio" name="card" id="3-card">
                     </div>
-                    <label for="thirdCard" class="modal__payment__label">
+                    <label for="3-card" class="modal__payment__label" id="label-card-1">
                         <span class="payment__card modal__card">
-                            <img src="assets/img/mastercard.svg" alt="mastercard">
+                            <img id="card-img-3" src="assets/img/mastercard.svg" alt="mastercard">
                         </span>
-                        <span>1234 56•• •••• 1234</span>
+                        <span id="card-num-3">1234 56•• •••• 1234</span>
                     </label>
                 </div>
                 <div class="modal__payment__option">
                     <div class="radio">
-                        <input type="radio" name="card" id="fourthCard">
+                        <input type="radio" name="card" id="4-card">
                     </div>
-                    <label for="fourthCard" class="modal__payment__label">
+                    <label for="4-card" class="modal__payment__label" id="label-card-1">
                         <span class="payment__card modal__card">
-                            <img src="assets/img/maestro.svg" alt="maestro">
+                            <img id="card-img-4" src="assets/img/maestro.svg" alt="maestro">
                         </span>
-                        <span>1234 56•• •••• 1234</span>
+                        <span id="card-num-4">1234 56•• •••• 1234</span>
                     </label>
                 </div>
             </form>
             <div class="modal__btn__container">
-                <button class="modal__btn">Выбрать</button>
+                <button type="submit" class="modal__btn" onclick="chooseCard()">Выбрать</button>
             </div>
         </div>
     </div>
@@ -451,9 +500,14 @@
         <button class="navbar__btn">
             <img class="navbar__btn__img" src="assets/img/navbar__search.svg" alt="search">
         </button>
-        <button class="navbar__btn">
-            <img class="navbar__btn__img" src="assets/img/header__cart.svg" alt="cart">
-        </button>
+        <div id="navbar-cart-btn">
+            <button class="navbar__btn">
+                <img class="navbar__btn__img" id="navbar-cart" src="assets/img/header__cart.svg" alt="cart">
+            </button>
+            <span class="navbar__cart__quantity">
+                <span id="cart-mobile-quantity">0</span>
+            </span>
+        </div>
         <button class="navbar__btn">
             <img class="navbar__btn__img" src="assets/img/navbar__wishlist.svg" alt="wishlist">
         </button>
