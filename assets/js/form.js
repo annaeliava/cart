@@ -112,27 +112,45 @@ function validateInn() {
     let inn = document.getElementById('inn-form');
     let inn_value = inn.value;
 
-    if(!(regex.test(inn_value))) {
+    if(!(regex.test(inn_value)) || inn_value === "") {
         inn.classList.add('form__error');
         inn.style.borderBottomWidth = '1px';
         inn.style.borderBottomStyle = 'solid';
         inn.style.borderBottomColor = "#F55123";
         document.getElementById('error__inn').textContent = 'Укажите ИНН';
+        document.getElementById('error__inn').classList.remove('form__input__inn__txt');
+        document.getElementById('error__inn').classList.add('error');
+        document.getElementById('error__inn').style.display = 'block';
     } else {
         document.getElementById('error__inn').textContent = 'Для таможенного оформления';
+        document.getElementById('error__inn').classList.remove('error');
+        document.getElementById('error__inn').classList.add('form__input__inn__txt');
+        document.getElementById('error__inn').style.display = 'none';
     }
 }
 
-function submit(e) {
-    e.preventDefault();
+function submit() {
+    let name = document.getElementById('name-form');
+    let surname = document.getElementById('surname-form');
+    let email = document.getElementById('email-form');
+    let phone = document.getElementById('phone-form');
+    let inn = document.getElementById('inn-form');
 
-    let form = document.getElementById("form"); 
-
-    form.scrollTo({ 
-        top: form.clientHeight, 
-        left: form.clientWidth, 
-        behavior: "smooth", 
-    })
+    if(window.innerWidth < 1024 && name.value === '' || surname.value === '' || email.value === '' || phone.value === '' || inn.value === '') {
+        validateName();
+        validateSurname();
+        validateEmail();
+        validatePhone();
+        validateInn();
+        window.scrollTo(0, 1876);
+    } else if(name.value === '' || surname.value === '' || email.value === '' || phone.value === '' || inn.value === '') {
+        validateName();
+        validateSurname();
+        validateEmail();
+        validatePhone();
+        validateInn();
+        window.scrollTo(0, document.body.scrollHeight);
+    }
 }
 
 

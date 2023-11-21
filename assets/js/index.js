@@ -13,6 +13,11 @@ function hideCart() {
         img.src = './assets/img/hide-btn.svg';
         label_select.style.display = 'block';
         price_quantity.style.display = 'none';
+        if(window.innerWidth < 1024) {
+            document.getElementById('notinstock_div').style.marginTop = '48px';
+        } else {
+            document.getElementById('notinstock_div').style.marginTop = '40px';
+        }
     } else {
         div.style.display = 'none';
         img.src = './assets/img/show-btn.svg';
@@ -20,6 +25,7 @@ function hideCart() {
         btn__quantity.textContent = quantity;
         btn__price.textContent = total;
         price_quantity.style.display = 'block';
+        document.getElementById('notinstock_div').style.marginTop = '16px';
     }
 }
 
