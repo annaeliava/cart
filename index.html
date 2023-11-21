@@ -44,7 +44,7 @@
                 </button>
             </div>
         </div>
-        <div class="header__mobile">
+        <div class="header__mobile" id="header-mobile">
             <button class="header__mobile__btn">
                 <img class="header__mobile__btn__img" src="assets/img/header__mobile__btn.svg" alt="burger">
             </button>
@@ -142,7 +142,7 @@
                                         <span class="shipping__bottom__txt__underline">бесплатно</span>
                                         <img class="shipping__bottom__txt__underline__img"
                                             src="assets/img/shipping-payment__underline.svg" alt="underline">
-                                        <span class="total__shipping__underline__info" id="total-shipping-underline-info">
+                                        <span class="shipping__underline__info" id="shipping-underline">
                                             Если товары вам не подойдут, мы вернем их обратно на склад — это бесплатно
                                         </span>
                                     </span>
@@ -296,12 +296,12 @@
                             <img class="total__shipping__img" src="assets/img/price-shipping.svg" alt="greencheckmark">
                         </span>
                         <span class="total__shipping__txt">Обратная доставка товаров на склад при отказе — 
-                            <span class="total__shipping__txt__accent" id="total-shipping-underline-word" onmouseover="mouseOverPrice()" onmouseout="mouseOutPrice()">
+                            <span class="total__shipping__txt__accent" id="total-shipping-underline-word" onmouseover="mouseOverPriceTotal()" onmouseout="mouseOutPriceTotal()">
                                 бесплатно
                                 <img class="total__shipping__txt__img" src="assets/img/shipping-payment__underline.svg"
                                     alt="underline">
                             </span>
-                            <span class="total__shipping__underline__info" id="total-shipping-underline-info">
+                            <span class="total__shipping__underline__info" id="total-shipping-underline">
                                 Если товары вам не подойдут, мы вернем их обратно на склад — это бесплатно
                             </span>
                         </span>
@@ -336,10 +336,13 @@
                             <img class="total__shipping__img" src="assets/img/price-shipping.svg" alt="greencheckmark">
                         </span>
                         <span class="total__shipping__txt">Обратная доставка товаров на склад при отказе — 
-                            <span class="total__shipping__txt__accent">
+                            <span class="total__shipping__txt__accent" onmouseover="mouseOverPriceTotal()" onmouseout="mouseOutPriceTotal()">
                                 бесплатно
                                 <img class="total__shipping__txt__img" src="assets/img/shipping-payment__underline.svg"
                                     alt="underline">
+                            </span>
+                            <span class="total__shipping__underline__info" id="total-shipping-underline">
+                                Если товары вам не подойдут, мы вернем их обратно на склад — это бесплатно
                             </span>
                         </span>
                     </div>

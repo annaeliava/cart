@@ -11,11 +11,21 @@ function mouseOut(id) {
 }
 
 function mouseOverPrice() {
-    let div = document.getElementById('total-shipping-underline-info');
+    let div = document.getElementById('shipping-underline');
     div.style.display = 'flex';
 }
 
 function mouseOutPrice() {
-    let div = document.getElementById('total-shipping-underline-info');
+    let div = document.getElementById('shipping-underline');
+    div.style.display = 'none';
+}
+
+function mouseOverPriceTotal() {
+    let div = document.getElementById('total-shipping-underline');
+    div.style.display = 'flex';
+}
+
+function mouseOutPriceTotal() {
+    let div = document.getElementById('total-shipping-underline');
     div.style.display = 'none';
 }

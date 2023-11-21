@@ -1,7 +1,7 @@
 let items = `[
     {
-        "img": "/assets/img/item1.jpg",
-        "disable_img": "/assets/img/item1-disable.jpg",
+        "img": "assets/img/item1.jpg",
+        "disable_img": "assets/img/item1-disable.jpg",
         "name": "Футболка UZcotton мужская",
         "color": "белый",
         "size": 56,
@@ -13,8 +13,8 @@ let items = `[
         "id": 1
     },
     {
-        "img": "/assets/img/item2.jpg",
-        "disable_img": "/assets/img/item2-disable.jpg",
+        "img": "assets/img/item2.jpg",
+        "disable_img": "assets/img/item2-disable.jpg",
         "name": "Силиконовый чехол картхолдер (отверстия) для карт, прозрачный кейс бампер на Apple iPhone XR, MobiSafe",
         "color": "прозрачный",
         "company": "OOO Мегапрофстиль",
@@ -25,8 +25,8 @@ let items = `[
         "id": 2
     },
     {
-        "img": "/assets/img/item3.jpg",
-        "disable_img": "/assets/img/item3-disable.jpg",
+        "img": "assets/img/item3.jpg",
+        "disable_img": "assets/img/item3-disable.jpg",
         "name": "Карандаши цветные Faber-Castell \\\"Замок\\\", набор 24 цвета, заточенные, шестигранные, Faber&#8209;Castell",
         "company": "OOO Вайлдберриз",
         "fullprice": 475,
@@ -106,7 +106,7 @@ function showItems(data) {
                         <div class="item__company__name">Коледино WB</div>
                         <div class="item__company__container">
                             <span class="item__company__name">${piece.company}</span>
-                            <img onmouseover="mouseOver(${piece.id})" onmouseout="mouseOut(${piece.id})" class="item__company__icon" src='/assets/img/warning.svg'/>
+                            <img onmouseover="mouseOver(${piece.id})" onmouseout="mouseOut(${piece.id})" class="item__company__icon" src='assets/img/warning.svg'/>
                             <div id="company__info-${piece.id}" class="company__info">
                                 <div class="company__name">${piece.company}</div>
                                 <div class="company__txt">ОГРН: 5167746237148</div>
@@ -130,10 +130,10 @@ function showItems(data) {
                         <div class="item__left" id="left-${piece.id}">${piece.instock < 2 ? `Осталось ${piece.instock - piece.quantity} шт.`: ''}</div>
                     <div class="btn__item" id="btns-${piece.id}">
                         <button class="btn btn__like" onclick="likeItem(${piece.id})">
-                            <img id="like-${piece.id}" class="btn__like__img" src="/assets/img/like.svg" />
+                            <img id="like-${piece.id}" class="btn__like__img" src="assets/img/like.svg" />
                         </button>
                         <button class="btn btn__delete" onclick="deleteItemCart(${piece.id})">
-                            <img class="btn__delete__img" src="/assets/img/delete.svg" />
+                            <img class="btn__delete__img" src="assets/img/delete.svg" />
                         </button>
                     </div>
                 </div>
@@ -193,10 +193,10 @@ function showNotInStock(data) {
                 <div class="notinstock__btns">
                     <div class="btn__item" id="notinstock-btns-${piece.id}">
                         <button class="btn btn__like" onclick="likeItem(${piece.id})">
-                            <img id="like-${piece.id}" class="btn__like__img" src="/assets/img/like.svg" />
+                            <img id="like-${piece.id}" class="btn__like__img" src="assets/img/like.svg" />
                         </button>
                         <button class="btn btn__delete" onclick="deleteItemCart(${piece.id})">
-                            <img class="btn__delete__img" src="/assets/img/delete.svg" />
+                            <img class="btn__delete__img" src="assets/img/delete.svg" />
                         </button>
                     </div>
                 </div>

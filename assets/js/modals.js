@@ -1,19 +1,27 @@
 function showShippingModal() {
+    let header = document.getElementById('header-mobile'); 
+    header.style.zIndex= 0;
     let modal = document.getElementById('modal-shipping');
     modal.style.display = 'flex';
 }
 
 function closeModalShipping() {
+    let header = document.getElementById('header-mobile'); 
+    header.style.zIndex= 10;
     let modal = document.getElementById('modal-shipping');
     modal.style.display = 'none';
 }
 
 function showCardModal() {
+    let header = document.getElementById('header-mobile'); 
+    header.style.zIndex= 0;
     let modal = document.getElementById('modal-payment');
     modal.style.display = 'flex';
 }
 
 function closeModalPayment() {
+    let header = document.getElementById('header-mobile'); 
+    header.style.zIndex= 10;
     let modal = document.getElementById('modal-payment');
     modal.style.display = 'none';
 }
